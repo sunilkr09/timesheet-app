@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import dayjs from "dayjs";
+import { Stack, HStack, VStack, Box } from '@chakra-ui/react';
 import { GrFormNext, GrFormPrevious } from "react-icons/gr";
 import { Button, ButtonGroup } from '@chakra-ui/react'
-import { Text } from '@chakra-ui/react'
+import { Input, Text, Select } from '@chakra-ui/react'
 import {
     Table,
     Thead,
@@ -14,7 +15,9 @@ import {
     TableCaption,
     TableContainer,
 } from '@chakra-ui/react'
-import "./TaskCanvas.css";
+import ProjectRow from "./ProjectRow";
+//import "./TaskCanvas.css";
+const tasks = require('./projects.json').tasks;
 
 function getWeek(firstDayOfWeek) {
     // generate the week
@@ -33,7 +36,14 @@ export default function TaskCanvas() {
 
     return (
         <div className="taskCanvas">
-            <div className="weekBar">
+            <HStack className="weekBar" spacing='10px'>
+                <Box w='80' textAlign='center'>
+                    <Text
+                        fontSize='1rem' color='purple'
+                        className="dateRangeBox">
+                        {week[0].format("MMMM D, YYYY")} - {week[6].format("MMMM D, YYYY")}
+                    </Text>
+                </Box>
                 <Button
                     colorScheme='purple' variant='solid'
                     className="weekNavigationButton"
@@ -45,11 +55,6 @@ export default function TaskCanvas() {
                 >
                     <GrFormPrevious />
                 </Button>
-                <Text
-                    fontSize='1rem' color='purple'
-                    className="dateRangeBox">
-                    {week[0].format("MMMM D, YYYY")} - {week[6].format("MMMM D, YYYY")}
-                </Text>
                 <Button
                     colorScheme='purple' variant='solid'
                     className="weekNavigationButton"
@@ -78,21 +83,40 @@ export default function TaskCanvas() {
                 >
                     Goto Current Week
                 </Button>
-            </div>
-            <Table colorScheme="purple" className="weekDays">
-                {week.map((day, index) => {
-                    return (
-                        <Th key={index} className="weekDay">
-                            {day.toDate().toDateString().substring(0, 3)}{" "}
-                            {day.toDate().toDateString().substring(8, 10)}
-                        </Th>
-                    );
-                })}
-            </Table>
-            <div className="taskWindow">
+            </HStack>
+            <TableContainer colorScheme="purple" className="weekDays">
+                <Table variant='simple'>
+                    {/* <TableCaption>Timesheet Add window</TableCaption> */}
+                    <Thead>
+                        <Tr>
+                            <Th textAlign='center'>Project Name</Th>
+                            {week.map((day, index) => {
+                                return (
+                                    <Th key={index} className="weekDay" textAlign='center'>
+                                        {day.toDate().toDateString().substring(0, 3)}{" "}
+                                        {day.toDate().toDateString().substring(8, 10)}
+                                    </Th>
+                                );
+                            })}
+                            <Th></Th>
+                        </Tr>
+                    </Thead>
+                    <Tbody>
+                        <ProjectRow tasks={tasks} />
+                    </Tbody>
+                    {/* <Tfoot>
+                        <Tr>
+                            <Th>To convert</Th>
+                            <Th>into</Th>
+                            <Th isNumeric>multiply by</Th>
+                        </Tr>
+                    </Tfoot> */}
+                </Table>
+            </TableContainer>
+            {/* <div className="taskWindow">
                 <p>There are no filled timesheet/task for the selected week</p>
                 <Button colorScheme="purple" size="lg" className="addTaskButton">Add Task</Button>
-            </div>
+            </div> */}
         </div>
     );
 }

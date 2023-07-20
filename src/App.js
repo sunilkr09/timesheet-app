@@ -12,11 +12,13 @@ import {
 import { ColorModeSwitcher } from './ColorModeSwitcher';
 import { Logo } from './Logo';
 import TaskCanvas from './components/TaskCanvas';
+import ProjectCard from './components/ProjectCard';
 
 function App() {
   return (
     <ChakraProvider theme={theme}>
       <TaskCanvas />
+      {/* <ProjectCard /> */}
     </ChakraProvider>
   );
 }
