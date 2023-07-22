@@ -5,11 +5,11 @@
     height: 75%;
     width: 100%;
     padding: 20px;
-    display: flex;
+    /* display: flex;
     flex-direction: column;
     justify-content: center;
     align-content: center;
-    text-align: center;
+    text-align: center; */
   }
   
   .taskCanvas {

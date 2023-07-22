@@ -15,6 +15,7 @@ import {
     TableContainer,
 } from '@chakra-ui/react'
 import "./TaskCanvas.css";
+import ProjectCards from "./ProjectCards";
 
 function getWeek(firstDayOfWeek) {
     // generate the week
@@ -90,9 +91,16 @@ export default function TaskCanvas() {
                 })}
             </Table>
             <div className="taskWindow">
-                <p>There are no filled timesheet/task for the selected week</p>
-                <Button colorScheme="purple" size="lg" className="addTaskButton">Add Task</Button>
+                {/* <div className="noTaskAdded">
+                    <p>There are no filled timesheet/task for the selected week</p>
+                    <Button colorScheme="purple" size="lg" className="addTaskButton"
+                        onClick={() => {
+                            alert("need to add task")
+                        }}
+                    >Add Task</Button>
+                </div> */}
+                <ProjectCards />
             </div>
-        </div>
+        </div >
     );
 }
